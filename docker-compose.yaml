@@ -5,7 +5,7 @@ networks:
 
 services: 
   hazelcast-1:
-    image: hazelcast/hazelcast:5.3.1
+    build: ./hazelcast
     container_name: hazelcast-1
     ports:
       - '5701:5701'
@@ -15,7 +15,7 @@ services:
       - datapipeline
 
   hazelcast-2:
-    image: hazelcast/hazelcast:5.3.1
+    build: ./hazelcast
     container_name: hazelcast-2
     ports:
       - '5702:5701'
@@ -25,7 +25,7 @@ services:
       - datapipeline
 
   hazelcast-3:
-    image: hazelcast/hazelcast:5.3.1
+    build: ./hazelcast
     container_name: hazelcast-3
     ports:
       - '5703:5701'
@@ -44,6 +44,127 @@ services:
     networks:
       - datapipeline
 
+
+  # without-1:
+  #   build:
+  #     ./client_1
+  #   depends_on:
+  #     - hazelcast-3
+  #     - hazelcast-2
+  #     - hazelcast-1
+  #   networks:
+  #     - datapipeline
+
+  # without-2:
+  #   build:
+  #     ./client_1
+  #   depends_on:
+  #     - hazelcast-3
+  #     - hazelcast-2
+  #     - hazelcast-1
+  #   networks:
+  #     - datapipeline
+
+  # without-3:
+  #   build:
+  #     ./client_1
+  #   depends_on:
+  #     - hazelcast-3
+  #     - hazelcast-2
+  #     - hazelcast-1
+  #   networks:
+  #     - datapipeline
+
+  # pesimistic-1:
+  #   build:
+  #     ./client_2
+  #   depends_on:
+  #     - hazelcast-3
+  #     - hazelcast-2
+  #     - hazelcast-1
+  #   networks:
+  #     - datapipeline
+
+  # pesimistic-2:
+  #   build:
+  #     ./client_2
+  #   depends_on:
+  #     - hazelcast-3
+  #     - hazelcast-2
+  #     - hazelcast-1
+  #   networks:
+  #     - datapipeline
+
+  # pesimistic-3:
+  #   build:
+  #     ./client_2
+  #   depends_on:
+  #     - hazelcast-3
+  #     - hazelcast-2
+  #     - hazelcast-1
+  #   networks:
+  #     - datapipeline
+
+  # optimistic-1:
+  #   build:
+  #     ./client_3
+  #   depends_on:
+  #     - hazelcast-3
+  #     - hazelcast-2
+  #     - hazelcast-1
+  #   networks:
+  #     - datapipeline
+
+  # optimistic-2:
+  #   build:
+  #     ./client_3
+  #   depends_on:
+  #     - hazelcast-3
+  #     - hazelcast-2
+  #     - hazelcast-1
+  #   networks:
+  #     - datapipeline
+
+  # optimistic-3:
+  #   build:
+  #     ./client_3
+  #   depends_on:
+  #     - hazelcast-3
+  #     - hazelcast-2
+  #     - hazelcast-1
+  #   networks:
+  #     - datapipeline
+
+
+  producer:
+    build:
+      ./producer
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
+
+  first_reader:
+    build:
+      ./first_reader
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
+
+  second_reader:
+    build:
+      ./second_reader
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
 
   management-center:
     image: hazelcast/management-center
