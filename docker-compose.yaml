@@ -1,0 +1,54 @@
+---
+version: '3.8'
+networks:
+    datapipeline:
+
+services: 
+  hazelcast-1:
+    image: hazelcast/hazelcast:5.3.1
+    container_name: hazelcast-1
+    ports:
+      - '5701:5701'
+    environment:
+      HZ_CLUSTERNAME: logs
+    networks:
+      - datapipeline
+
+  hazelcast-2:
+    image: hazelcast/hazelcast:5.3.1
+    container_name: hazelcast-2
+    ports:
+      - '5702:5701'
+    environment:
+      HZ_CLUSTERNAME: logs
+    networks:
+      - datapipeline
+
+  hazelcast-3:
+    image: hazelcast/hazelcast:5.3.1
+    container_name: hazelcast-3
+    ports:
+      - '5703:5701'
+    environment:
+      HZ_CLUSTERNAME: logs
+    networks:
+      - datapipeline
+
+  task-1:
+    build:
+      ./task-1
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
+
+
+  management-center:
+    image: hazelcast/management-center
+    container_name: management-center
+    ports:
+      - '8080:8080'
+    networks:
+      - datapipeline
