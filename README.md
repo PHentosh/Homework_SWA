@@ -1,5 +1,19 @@
 # Homework_SWA
 
+Увесь проект запескається черех docker-compose
+
+Щоб запустити проект:
+```
+$> docker-compose build
+$> docker-compose up -d
+```
+
+Щоб вимкнути все:
+```
+$> docker-compose down
+```
+
+
 Для завдань 1 та 2 я просто запустив 3 докер контейтера з імаджем hazelcast і вказав првильні порти для port-forwarding
 
 ## Завдання 3
