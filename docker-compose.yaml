@@ -17,17 +17,36 @@ services:
     networks:
       - datapipeline
 
-  messages:
+  hazelcast-queue:
+    build: ./hazelcast
+    container_name: hazelcast-queue
+    ports:
+      - '5704:5701'
+    environment:
+      HZ_CLUSTERNAME: logs
+    networks:
+      - datapipeline
+
+  messages-1:
     build:
-      ./messages
+      ./messages_1
     ports:
       - '8082:8082'
     depends_on:
-      - hazelcast-3
-      - hazelcast-2
-      - hazelcast-1
+      - hazelcast-queue
     networks:
       - datapipeline
+
+  messages-2:
+    build:
+      ./messages_2
+    ports:
+      - '8083:8083'
+    depends_on:
+      - hazelcast-queue
+    networks:
+      - datapipeline
+
 
   hazelcast-1:
     build: ./hazelcast
