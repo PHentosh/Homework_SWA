@@ -1,0 +1,88 @@
+---
+version: '3.8'
+networks:
+    datapipeline:
+
+services: 
+
+  facade:
+    build:
+      ./facade
+    ports:
+      - '8080:8080'
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
+
+  messages:
+    build:
+      ./messages
+    ports:
+      - '8082:8082'
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
+
+  hazelcast-1:
+    build: ./hazelcast
+    container_name: hazelcast-1
+    ports:
+      - '5701:5701'
+    environment:
+      HZ_CLUSTERNAME: logs
+    networks:
+      - datapipeline
+
+  logging-1:
+    build: ./logging-1
+    ports:
+      - '8081:8081'
+    depends_on:
+      - hazelcast-1
+
+    networks:
+      - datapipeline
+
+  hazelcast-2:
+    build: ./hazelcast
+    container_name: hazelcast-2
+    ports:
+      - '5702:5701'
+    environment:
+      HZ_CLUSTERNAME: logs
+    networks:
+      - datapipeline
+
+  logging-2:
+    build: ./logging-2
+    ports:
+      - '8084:8084'
+    depends_on:
+      - hazelcast-2
+    networks:
+      - datapipeline
+
+  hazelcast-3:
+    build: ./hazelcast
+    container_name: hazelcast-3
+    ports:
+      - '5703:5701'
+    environment:
+      HZ_CLUSTERNAME: logs
+    networks:
+      - datapipeline
+
+  logging-3:
+    build: ./logging-3
+    ports:
+      - '8085:8085'
+    depends_on:
+      - hazelcast-3
+    networks:
+      - datapipeline
