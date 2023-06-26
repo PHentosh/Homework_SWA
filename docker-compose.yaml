@@ -45,95 +45,95 @@ services:
       - datapipeline
 
 
-  # without-1:
-  #   build:
-  #     ./client_1
-  #   depends_on:
-  #     - hazelcast-3
-  #     - hazelcast-2
-  #     - hazelcast-1
-  #   networks:
-  #     - datapipeline
+  without-1:
+    build:
+      ./client_1
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
 
-  # without-2:
-  #   build:
-  #     ./client_1
-  #   depends_on:
-  #     - hazelcast-3
-  #     - hazelcast-2
-  #     - hazelcast-1
-  #   networks:
-  #     - datapipeline
+  without-2:
+    build:
+      ./client_1
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
 
-  # without-3:
-  #   build:
-  #     ./client_1
-  #   depends_on:
-  #     - hazelcast-3
-  #     - hazelcast-2
-  #     - hazelcast-1
-  #   networks:
-  #     - datapipeline
+  without-3:
+    build:
+      ./client_1
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
 
-  # pesimistic-1:
-  #   build:
-  #     ./client_2
-  #   depends_on:
-  #     - hazelcast-3
-  #     - hazelcast-2
-  #     - hazelcast-1
-  #   networks:
-  #     - datapipeline
+  pesimistic-1:
+    build:
+      ./client_2
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
 
-  # pesimistic-2:
-  #   build:
-  #     ./client_2
-  #   depends_on:
-  #     - hazelcast-3
-  #     - hazelcast-2
-  #     - hazelcast-1
-  #   networks:
-  #     - datapipeline
+  pesimistic-2:
+    build:
+      ./client_2
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
 
-  # pesimistic-3:
-  #   build:
-  #     ./client_2
-  #   depends_on:
-  #     - hazelcast-3
-  #     - hazelcast-2
-  #     - hazelcast-1
-  #   networks:
-  #     - datapipeline
+  pesimistic-3:
+    build:
+      ./client_2
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
 
-  # optimistic-1:
-  #   build:
-  #     ./client_3
-  #   depends_on:
-  #     - hazelcast-3
-  #     - hazelcast-2
-  #     - hazelcast-1
-  #   networks:
-  #     - datapipeline
+  optimistic-1:
+    build:
+      ./client_3
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
 
-  # optimistic-2:
-  #   build:
-  #     ./client_3
-  #   depends_on:
-  #     - hazelcast-3
-  #     - hazelcast-2
-  #     - hazelcast-1
-  #   networks:
-  #     - datapipeline
+  optimistic-2:
+    build:
+      ./client_3
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
 
-  # optimistic-3:
-  #   build:
-  #     ./client_3
-  #   depends_on:
-  #     - hazelcast-3
-  #     - hazelcast-2
-  #     - hazelcast-1
-  #   networks:
-  #     - datapipeline
+  optimistic-3:
+    build:
+      ./client_3
+    depends_on:
+      - hazelcast-3
+      - hazelcast-2
+      - hazelcast-1
+    networks:
+      - datapipeline
 
 
   producer:
