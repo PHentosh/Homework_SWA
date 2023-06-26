@@ -5,6 +5,7 @@ networks:
 
 services: 
 
+
   facade:
     build:
       ./facade
@@ -105,3 +106,19 @@ services:
       - hazelcast-3
     networks:
       - datapipeline
+
+  consul-server1:
+    image: hashicorp/consul:1.11.2
+    container_name: consul-server1
+    restart: always
+    volumes:
+     - ./consul/server1.json:/consul/config/server1.json:ro
+     - ./consul/certs/:/consul/config/certs/:ro
+    networks:
+      - datapipeline
+    ports:
+      - "8500:8500"
+      - "8600:8600/tcp"
+      - "8600:8600/udp"
+    command: >
+      agent -bootstrap-expect=1 

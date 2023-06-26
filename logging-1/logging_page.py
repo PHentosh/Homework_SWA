@@ -2,16 +2,38 @@ from flask import Flask, request
 import hazelcast
 import requests
 import json
+import consulate
+import time
 
+time.sleep(30)
+consul = consulate.Consul(host='consul-server1')
+
+consul.agent.service.register('logging-1',
+                               port=8081,
+                               address='logging-1',
+                               ttl='10s')
 
 app = Flask(__name__)
 
-client = hazelcast.HazelcastClient(
-cluster_name="logs", 
-cluster_members=["hazelcast-1"
-])
+services = json.loads(consul.agent.services())
+print(services)
+mq = []
+map_n = ""
+clust_n = ""
+for name in services.keys():
+    if "hazelcast-1" in name:
+        mq.append(services[name]['Address'])
+        map_n = services[name]['Tags'][1]
+        clust_n = services[name]['Tags'][0]
 
-map_t = client.get_map("logging_map").blocking()
+print(clust_n)
+print(mq)
+
+client = hazelcast.HazelcastClient(
+cluster_name=clust_n, 
+cluster_members=mq)
+
+map_t = client.get_map(map_n).blocking()
 
 @app.get('/')
 def login_get():
